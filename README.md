@@ -2,10 +2,13 @@
 
 Для запуска необходимо:
 
-1. `conf.d/prometheus.yml` - поменять ip adress targets
-2. `docker build -t deb-mon .` Необходимо построить image для контейнера, который мы мониторим 
-2. `docker-compose up -d` - поднимаем связку необходимых контейнеров
-3. `http://localhost:3000/connections/datasources` В веб интерфейсе Grafana поменять ip adress datasource 
+1. `sudo chmod -R 777 .` - даём полный права на каталог с проектом (без этого не стартует Grafana)
+2. `conf.d/prometheus.yml` - поменять ip adress targets
+3. `docker build -t deb-mon .` Необходимо построить image для контейнера, который мы мониторим 
+4. `docker-compose up -d` - поднимаем связку необходимых контейнеров
+5. `http://localhost:3000/connections/datasources` В веб интерфейсе Grafana поменять ip adress datasource
+ 
+логин/пароль Grafana: admin:21123$$21123$$
 
 Смотрим dashboards   "Linux Hosts Metrics | Base" & "top_10_mem"
 
