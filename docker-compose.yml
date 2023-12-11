@@ -1,0 +1,40 @@
+version: '3.1'
+
+networks:
+  rzd-net:
+    driver: bridge
+
+services:
+  
+  debian:
+    image: deb-mon
+    container_name: deb-host
+    networks:
+      - rzd-net
+    restart: always
+    ports:
+      - "9100:9100"
+
+  victoria-metrics:
+    image: victoriametrics/victoria-metrics:latest
+    container_name: victoria-metrics
+    networks:
+      - rzd-net
+    restart: always
+    volumes:
+      - ./victoria-metrics-data:/victoria-metrics-data
+    command:
+      - "--promscrape.config=./victoria-metrics-data/prometheus.yml"
+    ports:
+      - "8428:8428"
+
+  grafana:
+    image: grafana/grafana-oss
+    container_name: grafana
+    networks:
+      - rzd-net
+    restart: always
+    volumes:
+      - ./grafana-data:/var/lib/grafana
+    ports:
+      - "3000:3000"
